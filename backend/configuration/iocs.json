@@ -1,0 +1,20 @@
+{
+    "GAS_PRICE_THRESHOLD": {
+        "name": "GAS_PRICE_THRESHOLD",
+        "description": "Gas price threshold for sending transactions",
+        "alert_yaml": "GAS_PRICE_THRESHOLD.yaml",
+        "params": {
+            "GAS_PRICE_THRESHOLD": {
+                "name": "GAS_PRICE_THRESHOLD",
+                "description": "Gas price threshold for sending transactions",
+                "type": "float",
+                "default": 100000.0
+            },
+            "WEBHOOK_URL": {
+                "name": "WEBHOOK_URL",
+                "description": "Webhook URL for sending alerts",
+                "type": "str"
+            }
+        }
+    }
+}
