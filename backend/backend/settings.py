@@ -166,7 +166,7 @@ DEMO_ALLOWED_LOGINS = [
     "kapersky1337",
 ]
 
-API_DOMAIN = "api.secure-monlabs.xyz:8000"
+API_DOMAIN = "api.secure-monlabs.xyz:8000" # or whatever we plan it to be :)
 
 API_URL = f"http://{API_DOMAIN}/"
 
