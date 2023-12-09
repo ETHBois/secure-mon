@@ -33,7 +33,7 @@ CHAINS_AND_NETWORKS = {
     "eth": {
         "mainnet": MAINNET_RPC_URL,
         "goerli": GOERLI_RPC_URL,
-        "sepolia": "http://localhost:8545",
+        "sepolia": SEPOLIA_RPC_URL,
     },
     "arb": {
         "mainnet": ARBITRUM_RPC_URL,
