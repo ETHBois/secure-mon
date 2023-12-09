@@ -48,6 +48,12 @@ export default function ContractDetailed() {
           separator: {
             fontSize: "1.5rem",
           },
+          breadcrumb: {
+            color: "green",
+            ":visited": {
+              color: "green",
+            }
+          }
         }}
       >
         {breadcrumbItems}
