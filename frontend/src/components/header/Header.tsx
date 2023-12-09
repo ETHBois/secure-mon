@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Divider,
   Flex,
   Group,
   Header,
@@ -12,8 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import Logo from "../Logo";
-import OrganizationSelector from "./OrganizationSelector";
-import NotificationIsland from "./NotificationIsland";
+import AirstackSearch from "./AirstackSearch";
 
 export default function HeaderComponent() {
   const router = useRouter();
@@ -43,7 +41,7 @@ export default function HeaderComponent() {
 
         {shouldShowNotificationsIsland && (
           <>
-            <NotificationIsland />
+            <AirstackSearch />
             <Space w="4rem" />
           </>
         )}

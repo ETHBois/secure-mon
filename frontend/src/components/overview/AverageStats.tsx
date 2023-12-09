@@ -14,12 +14,6 @@ export default function AverageStats({ orgId }: { orgId: string | undefined }) {
       color: "yellow",
       value: notifsCount,
     },
-    {
-      title: "On-Chain Triggers",
-      icon: <TbBrandTorchain />,
-      color: "blue",
-      value: "Coming Soon!",
-    },
   ];
 
   const StatPanel = ({ timeMode }: { timeMode: TimeMode }) => {

@@ -28,7 +28,7 @@ export default function ContractInfo({
       <Stack>
         <Flex direction="row" justify="space-between">
           <Group>
-            <Text size="2.5em" weight="bold" color="yellow">
+            <Text size="2.5em" weight="bold" color="green">
               {contract.name}
             </Text>
 
