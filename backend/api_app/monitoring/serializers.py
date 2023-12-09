@@ -53,7 +53,14 @@ def airstack_identities(wallet: str) -> dict:
         logger.error(f"Error: {response.status_code} - {response.text}")
         return {'error': f"Error: {response.status_code} - {response.text}"}
 
+def check_forta_attack_detector_feed(wallet: str) -> dict:
+    pass
 
+def check_scam_detector_feed(wallet: str) -> dict:
+    pass
+
+def check_dummy_feed(wallet: str) -> dict:
+    pass
 
 # new code. This is the new serializer.
 # Transaction class to map transaction attributes
@@ -259,11 +266,16 @@ class BlockchainAlertRunner:
 
             # call function with arguments
 
-    def update_variables(self, variables):
-        variables["bool"] = bool
-        variables["airstack_identities"] = airstack_identities
+    def get_functions(self) -> dict:
+        functions = {}
 
-        return variables
+        functions["bool"] = bool
+        functions["airstack_identities"] = airstack_identities
+        functions["check_forta_attack_detector_feed"] = check_forta_attack_detector_feed
+        functions["check_scam_detector_feed"] = check_scam_detector_feed
+        functions["check_dummy_feed"] = check_dummy_feed
+
+        return functions
 
     def check_alert_condition(self, alert) -> bool:
         variables = self.transaction.compile_to_dict_with_prefix()
