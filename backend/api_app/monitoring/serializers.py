@@ -18,6 +18,8 @@ from api_app.monitoring.models import Alerts, Notification
 logger = logging.getLogger(__name__)
 
 def airstack_identities(wallet: str) -> dict:
+    logger.info(f"[airstack_identities] Wallet: {wallet}'s socials requested")
+
     url = 'https://api.airstack.xyz/gql'
     
     headers = {
@@ -29,6 +31,8 @@ def airstack_identities(wallet: str) -> dict:
     query = f'{{"query":"query MyQuery {{ Wallet(input: {{identity: \\"{wallet}\\", blockchain: ethereum}}) {{ identity socials {{ dappName profileName }} }} }}","operationName":"MyQuery"}}'
     
     response = requests.post(url, headers=headers, data=query)
+
+    logger.info(f"Response: {response.status_code} - {response.text}")
     
     if response.status_code == 200:
         data = response.json()
@@ -36,6 +40,8 @@ def airstack_identities(wallet: str) -> dict:
         
         identity = wallet_data.get('identity', '')
         socials = wallet_data.get('socials', [])
+
+        logger.info(f"Identity: {identity}")
         
         result = {
             'identity': identity,
@@ -44,6 +50,7 @@ def airstack_identities(wallet: str) -> dict:
         
         return result
     else:
+        logger.error(f"Error: {response.status_code} - {response.text}")
         return {'error': f"Error: {response.status_code} - {response.text}"}
 
 
@@ -90,7 +97,6 @@ class Transaction:
             "s": self.s,
             "timestamp": self.timestamp,
             "output": self.output,
-            "airstack_identities": airstack_identities
         }
 
     def compile_to_dict(self):
@@ -253,8 +259,16 @@ class BlockchainAlertRunner:
 
             # call function with arguments
 
+    def update_variables(self, variables):
+        variables["bool"] = bool
+        variables["airstack_identities"] = airstack_identities
+
+        return variables
+
     def check_alert_condition(self, alert) -> bool:
         variables = self.transaction.compile_to_dict_with_prefix()
+        variables = self.update_variables(variables)
+
         condition = alert.get("condition")
 
         if condition is None:
