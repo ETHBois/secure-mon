@@ -1,0 +1,1022 @@
+openapi: 3.0.3
+info:
+  title: secure-mon
+  version: 0.0.1
+  description: secure-monEye OpenAPI Documentation
+paths:
+  /authentication/github-callback:
+    get:
+      operationId: authentication_github_callback_retrieve
+      tags:
+      - authentication
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: authentication_github_callback_create
+      tags:
+      - authentication
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /authentication/login:
+    post:
+      operationId: authentication_login_create
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+          description: ''
+  /authentication/logout:
+    post:
+      operationId: authentication_logout_create
+      tags:
+      - authentication
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /authentication/me:
+    get:
+      operationId: authentication_me_retrieve
+      tags:
+      - authentication
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /authentication/token/refresh:
+    post:
+      operationId: authentication_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /monitoring/alerts:
+    post:
+      operationId: monitoring_alerts_create
+      tags:
+      - monitoring
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertsAPI'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AlertsAPI'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AlertsAPI'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertsAPI'
+          description: ''
+  /monitoring/alerts/{id}:
+    get:
+      operationId: monitoring_alerts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertsAPI'
+          description: ''
+    post:
+      operationId: monitoring_alerts_create_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - monitoring
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertsAPI'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AlertsAPI'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AlertsAPI'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertsAPI'
+          description: ''
+  /monitoring/contract/{id}/alerts:
+    get:
+      operationId: monitoring_contract_alerts_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AlertsAPI'
+          description: ''
+  /monitoring/notifications:
+    get:
+      operationId: monitoring_notifications_list
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationAPI'
+          description: ''
+  /monitoring/organization/alerts:
+    get:
+      operationId: monitoring_organization_alerts_list
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AlertsAPI'
+          description: ''
+  /monitoring/overview-data:
+    get:
+      operationId: monitoring_overview_data_retrieve
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /monitoring/overview-stats:
+    get:
+      operationId: monitoring_overview_stats_retrieve
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /monitoring/pre-written-alerts:
+    get:
+      operationId: monitoring_pre_written_alerts_retrieve
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /monitoring/set-pre-written-alerts:
+    post:
+      operationId: monitoring_set_pre_written_alerts_create
+      tags:
+      - monitoring
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /organizations/{organization_id}/invite:
+    post:
+      operationId: organizations_invite_create
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - organizations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invitation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Invitation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Invitation'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invitation'
+          description: ''
+  /organizations/accept_invitation/{token}:
+    post:
+      operationId: organizations_accept_invitation_create
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - organizations
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /organizations/my:
+    get:
+      operationId: organizations_my_list
+      tags:
+      - organizations
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+          description: ''
+    post:
+      operationId: organizations_my_create
+      tags:
+      - organizations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Organization'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Organization'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: ''
+  /organizations/my/{id}:
+    get:
+      operationId: organizations_my_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Organization.
+        required: true
+      tags:
+      - organizations
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: ''
+    put:
+      operationId: organizations_my_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Organization.
+        required: true
+      tags:
+      - organizations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Organization'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Organization'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: ''
+    patch:
+      operationId: organizations_my_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Organization.
+        required: true
+      tags:
+      - organizations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganization'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganization'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: ''
+    delete:
+      operationId: organizations_my_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this Organization.
+        required: true
+      tags:
+      - organizations
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /smartcontract/add_abi:
+    post:
+      operationId: smartcontract_add_abi_create
+      tags:
+      - smartcontract
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /smartcontract/delete_abi:
+    delete:
+      operationId: smartcontract_delete_abi_destroy
+      tags:
+      - smartcontract
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /smartcontract/get_abi:
+    get:
+      operationId: smartcontract_get_abi_retrieve
+      tags:
+      - smartcontract
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /smartcontract/my:
+    get:
+      operationId: smartcontract_my_list
+      tags:
+      - smartcontract
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SmartContract'
+          description: ''
+    post:
+      operationId: smartcontract_my_create
+      tags:
+      - smartcontract
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartContract'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SmartContract'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SmartContract'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartContract'
+          description: ''
+  /smartcontract/my/{id}:
+    get:
+      operationId: smartcontract_my_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this smart contract.
+        required: true
+      tags:
+      - smartcontract
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartContract'
+          description: ''
+    put:
+      operationId: smartcontract_my_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - smartcontract
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartContract'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SmartContract'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SmartContract'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartContract'
+          description: ''
+    patch:
+      operationId: smartcontract_my_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - smartcontract
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSmartContract'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSmartContract'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSmartContract'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartContract'
+          description: ''
+    delete:
+      operationId: smartcontract_my_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - smartcontract
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    AlertsAPI:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        smart_contract:
+          type: integer
+      required:
+      - created_at
+      - id
+      - name
+      - smart_contract
+      - updated_at
+    Invitation:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        is_admin:
+          type: boolean
+          default: false
+      required:
+      - email
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          minLength: 3
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 68
+          minLength: 6
+        tokens:
+          type: string
+          readOnly: true
+      required:
+      - email
+      - password
+      - tokens
+    Membership:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_admin:
+          type: boolean
+        is_owner:
+          type: boolean
+        organization:
+          type: string
+          format: uuid
+      required:
+      - created_at
+      - id
+      - organization
+      - updated_at
+      - user
+    NotificationAPI:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        notification_type:
+          $ref: '#/components/schemas/NotificationTypeEnum'
+        notification_body:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        notification_target:
+          type: string
+          maxLength: 255
+        trigger_transaction_hash:
+          type: string
+          nullable: true
+          maxLength: 255
+        meta_logs:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        alert:
+          type: integer
+      required:
+      - alert
+      - created_at
+      - id
+      - notification_target
+      - updated_at
+    NotificationTypeEnum:
+      enum:
+      - EMAIL
+      - SMS
+      - WEBHOOK
+      type: string
+      description: |-
+        * `EMAIL` - Email
+        * `SMS` - Sms
+        * `WEBHOOK` - Webhook
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        memberships:
+          type: array
+          items:
+            $ref: '#/components/schemas/Membership'
+          readOnly: true
+        is_member:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+      required:
+      - created_at
+      - id
+      - is_member
+      - memberships
+      - name
+      - updated_at
+    PatchedOrganization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        memberships:
+          type: array
+          items:
+            $ref: '#/components/schemas/Membership'
+          readOnly: true
+        is_member:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+    PatchedSmartContract:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+        chain:
+          type: string
+        network:
+          type: string
+        owner_organization:
+          type: string
+          format: uuid
+          writeOnly: true
+    SmartContract:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+        chain:
+          type: string
+        network:
+          type: string
+        owner_organization:
+          type: string
+          format: uuid
+          writeOnly: true
+      required:
+      - address
+      - chain
+      - id
+      - name
+      - network
+      - owner_organization
+    StatusEnum:
+      enum:
+      - PENDING
+      - SENT
+      - FAILED
+      type: string
+      description: |-
+        * `PENDING` - Pending
+        * `SENT` - Sent
+        * `FAILED` - Failed
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        username:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        avatar:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        is_staff:
+          type: boolean
+      required:
+      - created_at
+      - email
+      - id
+      - updated_at
+      - username
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "JWT"
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+servers:
+- url: http://localhost:3000/
+  description: Localhost API base URL
