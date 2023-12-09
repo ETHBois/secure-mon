@@ -39,10 +39,6 @@ export default function HeaderComponent() {
           <Link href="/">
             <Logo />
           </Link>
-
-          <Divider orientation="vertical" />
-
-          {shouldShowOrganizationSelector && <OrganizationSelector />}
         </Group>
 
         {shouldShowNotificationsIsland && (

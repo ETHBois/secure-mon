@@ -18,7 +18,7 @@ export default function ChoosePresetAlert({
   const { presets } = usePresetAlerts();
 
   return (
-    <AlertCreateStepLayout title="Choose Preset">
+    <AlertCreateStepLayout title="Choose Template">
       <SimpleGrid cols={2} spacing={20}>
         {presets?.map((preset, idx) => (
           <PresetCard

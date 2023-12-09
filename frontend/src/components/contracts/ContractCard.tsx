@@ -52,7 +52,7 @@ export default function ContractCard({
     >
       <Stack justify={"flex-start"} spacing="none">
         <Flex justify={"space-between"}>
-          <Text size="1.4rem" weight={800} color="yellow">
+          <Text size="1.4rem" weight={800} color="green">
             {contract.name}
           </Text>
 

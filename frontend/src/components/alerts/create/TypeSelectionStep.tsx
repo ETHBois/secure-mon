@@ -62,7 +62,7 @@ export default function TypeSelectionStep({
       <Flex direction="row" h="100%" w="100%" justify="center" gap="lg">
         <TypeCard
           isSelected={alertType === AlertType.Preset}
-          title="Preset"
+          title="Templates"
           icon={<BsFillCartCheckFill size="60%" />}
           onClick={() => setAlertType(AlertType.Preset)}
         />

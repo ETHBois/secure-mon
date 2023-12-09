@@ -71,7 +71,7 @@ export default function ExecutionPieCharts({
 
   return (
     <Stack h="100%">
-      <Text size="1.8em" weight="bold" color="yellow">
+      <Text size="1.8em" weight="bold" color="green">
         Executions / Triggers weekly
       </Text>
 
