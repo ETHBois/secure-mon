@@ -18,6 +18,8 @@ from api_app.monitoring.models import Alerts, Notification
 logger = logging.getLogger(__name__)
 
 def airstack_identities(wallet: str) -> dict:
+    logger.info(f"[airstack_identities] Wallet: {wallet}'s socials requested")
+
     url = 'https://api.airstack.xyz/gql'
     
     headers = {
@@ -29,6 +31,8 @@ def airstack_identities(wallet: str) -> dict:
     query = f'{{"query":"query MyQuery {{ Wallet(input: {{identity: \\"{wallet}\\", blockchain: ethereum}}) {{ identity socials {{ dappName profileName }} }} }}","operationName":"MyQuery"}}'
     
     response = requests.post(url, headers=headers, data=query)
+
+    logger.info(f"Response: {response.status_code} - {response.text}")
     
     if response.status_code == 200:
         data = response.json()
@@ -36,6 +40,8 @@ def airstack_identities(wallet: str) -> dict:
         
         identity = wallet_data.get('identity', '')
         socials = wallet_data.get('socials', [])
+
+        logger.info(f"Identity: {identity}")
         
         result = {
             'identity': identity,
@@ -44,9 +50,17 @@ def airstack_identities(wallet: str) -> dict:
         
         return result
     else:
+        logger.error(f"Error: {response.status_code} - {response.text}")
         return {'error': f"Error: {response.status_code} - {response.text}"}
 
+def check_forta_attack_detector_feed(wallet: str) -> dict:
+    pass
 
+def check_scam_detector_feed(wallet: str) -> dict:
+    pass
+
+def check_dummy_feed(wallet: str) -> dict:
+    pass
 
 # new code. This is the new serializer.
 # Transaction class to map transaction attributes
@@ -90,7 +104,6 @@ class Transaction:
             "s": self.s,
             "timestamp": self.timestamp,
             "output": self.output,
-            "airstack_identities": airstack_identities
         }
 
     def compile_to_dict(self):
@@ -253,15 +266,28 @@ class BlockchainAlertRunner:
 
             # call function with arguments
 
+    def get_functions(self) -> dict:
+        functions = {}
+
+        functions["bool"] = bool
+        functions["airstack_identities"] = airstack_identities
+        functions["check_forta_attack_detector_feed"] = check_forta_attack_detector_feed
+        functions["check_scam_detector_feed"] = check_scam_detector_feed
+        functions["check_dummy_feed"] = check_dummy_feed
+
+        return functions
+
     def check_alert_condition(self, alert) -> bool:
         variables = self.transaction.compile_to_dict_with_prefix()
+        functions = self.get_functions()
+
         condition = alert.get("condition")
 
         if condition is None:
             raise ConditionResultError("Condition not found in alert.")
 
         try:
-            result: bool = simple_eval(condition, names=variables)
+            result: bool = simple_eval(condition, names=variables, functions=functions)
         except Exception as e:
             raise ConditionResultError(e)
 
