@@ -279,7 +279,7 @@ class BlockchainAlertRunner:
 
     def check_alert_condition(self, alert) -> bool:
         variables = self.transaction.compile_to_dict_with_prefix()
-        variables = self.update_variables(variables)
+        functions = self.get_functions()
 
         condition = alert.get("condition")
 
@@ -287,7 +287,7 @@ class BlockchainAlertRunner:
             raise ConditionResultError("Condition not found in alert.")
 
         try:
-            result: bool = simple_eval(condition, names=variables)
+            result: bool = simple_eval(condition, names=variables, functions=functions)
         except Exception as e:
             raise ConditionResultError(e)
 
