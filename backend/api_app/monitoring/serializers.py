@@ -47,6 +47,8 @@ def airstack_identities(wallet: str) -> dict:
             'identity': identity,
             'socials': socials
         }
+
+        logger.info(f"Result: {result}")
         
         return result
     else:
@@ -287,6 +289,7 @@ class BlockchainAlertRunner:
             raise ConditionResultError("Condition not found in alert.")
 
         try:
+            logger.info(f"Condition: {condition} with alert: {alert}")
             result: bool = simple_eval(condition, names=variables, functions=functions)
         except Exception as e:
             raise ConditionResultError(e)
