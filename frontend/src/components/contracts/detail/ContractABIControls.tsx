@@ -13,7 +13,7 @@ export default function ContractABIControls({
   contractId: string | undefined;
 }) {
   const { mutate } = useSWRConfig();
-  const { abi } = useContractABI(contractId);
+  const { abi }: { abi: Map<any, any> } = useContractABI(contractId);
 
   const handleDelete = async () => {
     await deleteContractABI(parseInt(contractId!));
@@ -32,7 +32,7 @@ export default function ContractABIControls({
       <Text size="2em" color="green" weight="bold">
         ABI
       </Text>
-      {abi ? (
+      {(abi && !abi.hasOwnProperty("error")) ? (
         <Button
           color="gray"
           variant="outline"

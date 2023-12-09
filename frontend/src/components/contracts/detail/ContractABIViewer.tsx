@@ -29,7 +29,7 @@ export default function ContractABIViewer({
     });
   };
 
-  if (!abi) {
+  if (!abi || abi.hasOwnProperty("error")) {
     return (
       <>
         <Modal
