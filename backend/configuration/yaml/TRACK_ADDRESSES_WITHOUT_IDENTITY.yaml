@@ -1,0 +1,8 @@
+blockchain_alerts:
+- alert_type: every_transaction
+  alerts:
+    AlertName:
+      condition: 'airstack_identities(txn_to).get("socials") == None or airstack_identities(txn_from).get("socials") == None' # condition (boolean) runs like python, but is not
+      notifications:
+      - send_webhook
+      webhook_url: '${WEBHOOK_URL}'

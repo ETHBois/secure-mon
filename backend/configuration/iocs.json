@@ -16,5 +16,17 @@
                 "type": "str"
             }
         }
+    },
+    "TRACK_ADDRESSES_WITHOUT_IDENTITY" : {
+        "name": "TRACK_ADDRESSES_WITHOUT_IDENTITY",
+        "description": "Powered by airstack!",
+        "alert_yaml": "TRACK_ADDRESSES_WITHOUT_IDENTITY.yaml",
+        "params": {
+            "WEBHOOK_URL": {
+                "name": "WEBHOOK_URL",
+                "description": "Webhook URL for sending alerts",
+                "type": "str"
+            }
+        }
     }
 }
