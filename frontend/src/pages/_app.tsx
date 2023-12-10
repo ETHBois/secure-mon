@@ -56,7 +56,7 @@ export default function App(props: AppPropsWithLayout) {
   }, [colorScheme]);
 
   const mantineTheme: MantineThemeOverride = {
-    colorScheme: colorScheme,
+    colorScheme: "light",
     fontFamily: "Inter, sans-serif",
   };
 
