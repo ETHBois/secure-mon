@@ -170,6 +170,8 @@ ASGI_APPLICATION = "backend.asgi.application"
 
 DEMO_INSTANCE = True if os.environ.get("DEMO_INSTANCE") == "true" else False
 
+logger.info(f"DEMO_INSTANCE: {DEMO_INSTANCE}")
+
 DEMO_ALLOWED_LOGINS = [
     "0x0elliot",
     "syedahkam",
