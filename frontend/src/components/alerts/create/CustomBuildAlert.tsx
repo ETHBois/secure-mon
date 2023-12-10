@@ -57,7 +57,8 @@ export default function CustomBuildAlert({
           onChange={onChange}
           // @ts-ignore
           extensions={[loadLanguage("yaml"), EditorView.lineWrapping]}
-        />
+        >
+        </CodeMirror>
       </Paper>
     </AlertCreateStepLayout>
   );
