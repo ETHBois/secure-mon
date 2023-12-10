@@ -1,7 +1,8 @@
 import { Chain, Network } from "@/models/contract";
 import { createContract } from "@/services/contracts";
-import { Button, SegmentedControl, Select, Stack, TextInput } from "@mantine/core";
+import { Button, Group, SegmentedControl, Select, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import ChainIcon from "../ChainIcon";
 
 const ethContractAddressRegex = new RegExp(/^0x([A-Fa-f0-9]{40})$/);
 
@@ -51,11 +52,9 @@ export default function AddContractForm({
     <form onSubmit={form.onSubmit((values) => handleOnSubmit(values))}>
       <Stack spacing="lg">
         <SegmentedControl
-          style={{
-            alignSelf: "center",
-          }}
+          fullWidth
           data={Object.entries(Chain).map(([k, v]) => ({
-            label: k,
+            label: <Group><ChainIcon chain={v} /> {k}</Group>,
             value: v
           }))}
           {...form.getInputProps("chain")}

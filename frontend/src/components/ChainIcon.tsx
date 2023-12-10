@@ -7,7 +7,7 @@ export default function ChainIcon({ chain }: { chain: Chain }) {
 
   switch (chain) {
     case Chain.ETH:
-      return <FaEthereum />;
+      return <Image src="https://cryptologos.cc/logos/ethereum-eth-logo.svg" alt="Ethereum" width={24} height={24} />;
     case Chain.ARB:
       return <Image src="https://cryptologos.cc/logos/arbitrum-arb-logo.svg" alt="Arbitrum" width={24} height={24} />;
     case Chain.MNT:
