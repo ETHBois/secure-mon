@@ -21,7 +21,7 @@ const PLACEHOLDER_ALERT = `blockchain_alerts:
 const CodeMirror = dynamic(
   () => import("@uiw/react-codemirror").then((mod) => mod.default),
   { ssr: false }
-);
+) as any;
 
 export default function CustomBuildAlert({
   yaml,
