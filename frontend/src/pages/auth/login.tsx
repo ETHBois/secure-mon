@@ -28,7 +28,7 @@ export default function Page() {
 
           <Space w="md" />
 
-          <Link href={"/api/v1/authentication/google"}>
+          {/* <Link href={"/api/v1/authentication/google"}>
             <Button
               variant={"subtle"}
               size="lg"
@@ -37,7 +37,7 @@ export default function Page() {
             >
               <Text color="blue.5">Login with Google</Text>
             </Button>
-          </Link>
+          </Link> */}
 
         </Flex>
       </main>
