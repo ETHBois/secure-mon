@@ -256,6 +256,7 @@ def monitor_contract(self, monitoring_task_id):
 
     while True:
         try:
+            logger.info(f"[DEBUG] Waiting for response for chain {chain} for {contract_address}")
             # collect data
             message = ws.recv()
             response = json.loads(message)

@@ -17,6 +17,55 @@ from api_app.monitoring.models import Alerts, Notification
 
 logger = logging.getLogger(__name__)
 
+
+def check_forta_attack_detector_feed(user_input):
+    url = 'https://explorer-api.forta.network/graphql'
+
+    headers = {
+        'authority': 'explorer-api.forta.network',
+        'accept': '*/*',
+        'accept-language': 'en-US,en;q=0.9',
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'origin': 'https://app.forta.network',
+        'pragma': 'no-cache',
+        'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-site',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+    }
+
+    payload = {
+        'operationName': 'RetrieveAlerts',
+        'variables': {
+            'getListInput': {
+                'severity': [],
+                'addresses': [],
+                'text': user_input,
+                'agents': ['0x1d646c4045189991fdfd24a66b192a294158b839a6ec121d740474bdacb3ab23'],
+                'sort': 'desc',
+                'muted': [],
+                'txHash': '',
+                'limit': 10
+            }
+        },
+        'query': 'query RetrieveAlerts($getListInput: GetAlertsInput) {\n  getList(input: $getListInput) {\n    alerts {\n      hash\n      description\n      severity\n      protocol\n      name\n      alert_id\n      scanner_count\n      alert_document_type\n      alert_timestamp\n      source {\n        tx_hash\n        agent {\n          id\n          __typename\n        }\n        block {\n          chain_id\n          number\n          timestamp\n          __typename\n        }\n        source_alert {\n          hash\n          timestamp\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    nextPageValues {\n      timestamp\n      id\n      __typename\n    }\n    currentPageValues {\n      timestamp\n      id\n      __typename\n    }\n    __typename\n  }\n}\n'
+    }
+
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+
+    if response.status_code == 200:
+        data = response.json()
+        alert_list = data.get('data', {}).get('getList', {}).get('alerts', [])
+        
+        return not not alert_list  # Return True if alert_list is not empty, False otherwise
+    else:
+        print(f"Error: {response.status_code}, {response.text}")
+        return False
+
 def airstack_identities(wallet: str) -> dict:
     logger.info(f"[airstack_identities] Wallet: {wallet}'s socials requested")
 
@@ -54,9 +103,6 @@ def airstack_identities(wallet: str) -> dict:
     else:
         logger.error(f"Error: {response.status_code} - {response.text}")
         return {'error': f"Error: {response.status_code} - {response.text}"}
-
-def check_forta_attack_detector_feed(wallet: str) -> dict:
-    pass
 
 def check_scam_detector_feed(wallet: str) -> dict:
     pass
