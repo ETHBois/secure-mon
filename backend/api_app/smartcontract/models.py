@@ -12,6 +12,7 @@ class Chain(models.TextChoices):
     ETH = "ETH", "eth"
     ARB = "ARB", "arb"
     MNT = "MNT", "mnt"
+    SCRL = "SCRL", "scrl"
 
 
 class Network(models.TextChoices):

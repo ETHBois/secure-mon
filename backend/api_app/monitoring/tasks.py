@@ -161,6 +161,17 @@ def monitor_contract(self, monitoring_task_id):
             ],
         }
 
+    elif chain == "scrl":
+        subscribe_data = {
+            "id": 1,
+            "jsonrpc": "2.0",
+            "method": "eth_subscribe",
+            "params": [
+                "logs",
+                {"address": contract_address, "fromBlock": "latest"},
+            ],
+        }
+
     elif chain == "arb":
     # else:
         subscribe_data = {
@@ -293,6 +304,17 @@ def monitor_contract(self, monitoring_task_id):
 
                     transaction_hash = response["params"]["result"]["transactionHash"]
                     transaction = fetch_transaction_details(transaction_hash)
+                
+                elif "scrl" == chain:
+                    if type(response.get("result")) == str:
+                        logger.error(
+                            f"[DEBUG] Transaction hash is string. continuing"
+                        )
+
+                        continue
+                    # transaction_hash = response["result"]
+                    # transaction = fetch_transaction_details(transaction_hash)
+                    transaction = response.get("params").get("result")
 
                 elif "arb" == chain:
                     transaction_hash = response.get("result")

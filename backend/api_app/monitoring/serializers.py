@@ -318,6 +318,8 @@ class BlockchainAlertRunner:
         functions = {}
 
         functions["bool"] = bool
+        functions["int"] = int
+        functions["str"] = str
         functions["airstack_identities"] = airstack_identities
         functions["check_forta_attack_detector_feed"] = check_forta_attack_detector_feed
         functions["check_scam_detector_feed"] = check_scam_detector_feed

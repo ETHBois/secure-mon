@@ -10,7 +10,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ["cryptologos.cc"],
+    domains: ["cryptologos.cc", "pbs.twimg.com"],
   },
   async redirects() {
     return [

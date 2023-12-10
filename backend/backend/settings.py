@@ -28,6 +28,7 @@ MAINNET_RPC_URL = os.environ.get("MAINNET_RPC_URL", "")
 ARBITRUM_RPC_URL = os.environ.get("ARBITRUM_RPC_URL", "")
 SEPOLIA_RPC_URL = os.environ.get("SEPOLIA_RPC_URL", "")
 MANTLE_RPC_URL = os.environ.get("MANTLE_RPC_URL", "")
+SCROLL_RPC_URL = os.environ.get("SCROLL_RPC_URL", "")
 
 # mapping of URLs to different ethereum based chains and networks
 CHAINS_AND_NETWORKS = {
@@ -41,7 +42,10 @@ CHAINS_AND_NETWORKS = {
     },
     "mnt": {
         "mainnet": MANTLE_RPC_URL,
-    }
+    },
+    "scrl": {
+        "sepolia": SCROLL_RPC_URL,
+    },
 }
 
 ETH_NETWORK_IDS = {

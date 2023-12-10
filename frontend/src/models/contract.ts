@@ -1,7 +1,8 @@
 export enum Chain {
   ETH = "eth",
   ARB = "arb",
-  MNT = "mnt"
+  MNT = "mnt",
+  SCRL = "scrl"
 }
 
 export enum Network {
