@@ -10,6 +10,8 @@ export default function ChainIcon({ chain }: { chain: Chain }) {
       return <FaEthereum />;
     case Chain.ARB:
       return <Image src="https://cryptologos.cc/logos/arbitrum-arb-logo.svg" alt="Arbitrum" width={24} height={24} />;
+    case Chain.MNT:
+      return <Image src="https://cryptologos.cc/logos/mantle-mnt-logo.svg" alt="Mantle" width={24} height={24} />;
     default:
       return <FaEthereum />;
   }
