@@ -132,6 +132,7 @@ def monitor_contract(self, monitoring_task_id):
 
     logger.info(f"[DEBUG] the chain URL is: {rpc_url}")
 
+
     w3 = Web3(Web3.WebsocketProvider(rpc_url))
     w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
@@ -151,6 +152,7 @@ def monitor_contract(self, monitoring_task_id):
             ],
         }
     elif chain == "mnt":
+        logger.info(f"[DEBUG] Monitoring task for MNT chain")
         subscribe_data = {
             "id": 1,
             "jsonrpc": "2.0",
@@ -179,7 +181,7 @@ def monitor_contract(self, monitoring_task_id):
             "jsonrpc": "2.0",
             "method": "eth_subscribe",
             "params": [
-                "alchemy_minedTransactions",
+                "logs",
                 {"address": contract_address, "fromBlock": "latest"},
             ],
         }
@@ -204,13 +206,21 @@ def monitor_contract(self, monitoring_task_id):
         response = json.loads(ws.recv())
 
         # if chain == "arb":
-        if chain != "eth":
+        if chain == "arb":
+            logger.info(f"[DEBUG] Received response: {response}")
+            transaction_data = response.get("result")
+
+            if transaction_data is None:
+                transaction_data = response
+
+        elif chain != "eth":
             logger.info(f"[DEBUG] Received response: {response}")
             response = response.get("params").get("result").get("transaction")
 
         response["transaction_hash"] = transaction_hash
 
-        transaction_data = response["result"]
+        if chain != "arb":
+            transaction_data = response["result"]
 
         # converting most things into integers
         transaction_data["timestamp"] = datetime.now().timestamp()
@@ -317,16 +327,22 @@ def monitor_contract(self, monitoring_task_id):
                     transaction = response.get("params").get("result")
 
                 elif "arb" == chain:
-                    transaction_hash = response.get("result")
-                    if transaction_hash is None:
-                        logger.info(
-                            f"[DEBUG] Transaction hash is none. Trying to see if it's in the params"
+                    # transaction_hash = response.get("result")
+                    if type(response.get("result")) == str:
+                        logger.error(
+                            f"[DEBUG] Transaction hash is string. continuing"
                         )
-                        transaction = (
-                            response.get("params").get("result").get("transaction")
-                        )
-                    else:
-                        transaction = fetch_transaction_details(transaction_hash)
+
+                        continue
+
+                    transaction_hash = response.get("params").get("result").get("transactionHash")
+                    transaction = fetch_transaction_details(transaction_hash)
+
+                    #     transaction = (
+                    #         response.get("params").get("result").get("transaction")
+                    #     )
+                    # else:
+                    #     transaction = fetch_transaction_details(transaction_hash)
 
                 if transaction is None:
                     logger.info(f"[DEBUG] Transaction is none. Response is {response}")

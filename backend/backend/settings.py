@@ -29,6 +29,7 @@ DEBUGGING_WALLET = "0xEb87fcc7B227400D157dD976d1C4B18f42dC14fa"
 GOERLI_RPC_URL = os.environ.get("GOERLI_RPC_URL", "")
 MAINNET_RPC_URL = os.environ.get("MAINNET_RPC_URL", "")
 ARBITRUM_RPC_URL = os.environ.get("ARBITRUM_RPC_URL", "")
+ARB_SEP = "wss://arb-sepolia.g.alchemy.com/v2/r4H7wHI4NEBo-7gdYhkEWM43ao1ZyMko"
 SEPOLIA_RPC_URL = os.environ.get("SEPOLIA_RPC_URL", "")
 MANTLE_RPC_URL = os.environ.get("MANTLE_RPC_URL", "")
 SCROLL_RPC_URL = os.environ.get("SCROLL_RPC_URL", "")
@@ -42,9 +43,11 @@ CHAINS_AND_NETWORKS = {
     },
     "arb": {
         "mainnet": ARBITRUM_RPC_URL,
+        "sepolia": ARB_SEP
     },
     "mnt": {
         "mainnet": MANTLE_RPC_URL,
+        "sepolia": MANTLE_RPC_URL,
     },
     "scrl": {
         "sepolia": SCROLL_RPC_URL,

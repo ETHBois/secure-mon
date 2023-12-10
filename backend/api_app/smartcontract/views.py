@@ -1,4 +1,5 @@
 import json
+import logging
 
 from rest_framework import status as Status
 from rest_framework import viewsets
@@ -14,6 +15,8 @@ from authentication.organizations.permissions import IsMember
 
 from .models import SmartContract
 from .serializers import ABIJSONSerializer, SmartContractSerializer
+
+logger = logging.getLogger(__name__)
 
 
 class SmartContractViewSet(viewsets.ModelViewSet):
@@ -85,13 +88,14 @@ def get_abi(request):
 @permission_classes([CanAccessSmartContractWithoutAction])
 def add_abi(request):
     smart_contract_id = request.query_params.get("smart_contract")
+    # logger.info(f"smart_contract_id: {smart_contract_id}")
     smart_contract = SmartContract.objects.filter(id=smart_contract_id).first()
 
-    if request.data is None and type(request.data) != dict:
-        return Response(
-            {"error": "request data is required"},
-            status=Status.HTTP_400_BAD_REQUEST,
-        )
+    # if request.data is None and type(request.data) != dict:
+    #     return Response(
+    #         {"error": "request data is required"},
+    #         status=Status.HTTP_400_BAD_REQUEST,
+    #     )
 
     # Get abi as text
     abi = request.data.get("abi")
