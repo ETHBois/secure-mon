@@ -68,7 +68,7 @@ export default function AirstackSearch() {
         Powered by
         <span
           style={{
-            color:  "green"
+            color:  "red"
           }}
         >
           {" "}
