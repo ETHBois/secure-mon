@@ -8,10 +8,6 @@ import AppShellLayout from "@/layouts/AppShellLayout";
 import PresetCard from "@/components/alerts/create/PresetCard";
 
 export default function Templates() {
-  const router = useRouter();
-
-  const orgId = router.query.orgId as string;
-
   const { presets } = usePresetAlerts();
 
   return (
@@ -25,7 +21,6 @@ export default function Templates() {
           <PresetCard
             key={idx}
             preset={preset}
-            onClick={() => router.push(`/org/${orgId}/alerts/create`)}
           />
         ))}
       </SimpleGrid>
