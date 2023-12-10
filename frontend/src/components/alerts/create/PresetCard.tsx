@@ -57,8 +57,8 @@ export default function PresetCard({
   onClick,
 }: {
   preset: PresetAlert;
-  isSelected: boolean;
-  onClick: () => void;
+  isSelected?: boolean;
+  onClick?: () => void;
 }) {
   const { classes, cx } = useCardStyles();
 

@@ -15,6 +15,7 @@ import { FiLogOut, FiSettings } from "react-icons/fi";
 import { IconType } from "react-icons/lib";
 
 import UserAvatar from "./UserAvatar";
+import { MdOutlineCreateNewFolder } from "react-icons/md";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -96,7 +97,8 @@ const navLinks: NavLink[] = [
     name: "contracts",
     href: "contracts",
   },
-  { icon: AiFillAlert, label: "Alerts", name: "alerts", href: "alerts/create" }, // TODO: Change this to alerts when the page is created
+  { icon: AiFillAlert, label: "Alerts", name: "alerts", href: "alerts/create" },
+  { icon: MdOutlineCreateNewFolder, label: "Templates", name: "templates", href: "templates" }, 
 ];
 
 export default function NavbarMinimal({
