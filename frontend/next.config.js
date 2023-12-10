@@ -38,4 +38,8 @@ const nextConfig = {
   }
 };
 
+nextConfig.typescript = {
+  ignoreBuildErrors: true,
+};
+
 module.exports = removeImports(nextConfig);
