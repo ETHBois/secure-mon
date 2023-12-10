@@ -177,7 +177,7 @@ def github_login(request):
     if settings.DEMO_INSTANCE:
         redirect_uri = redirect_uri.replace("http://", "https://")
         redirect_uri = (
-            "https://demo.secure-monlabs.xyz/api/v1/authentication/github-callback"
+            "https://secure-mon.vercel.app/api/v1/authentication/github-callback"
         )
 
     try:
