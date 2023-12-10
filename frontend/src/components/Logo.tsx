@@ -8,7 +8,7 @@ export default function Logo() {
       size="2rem"
       weight={900}
     >
-      secure-mon
+      SecureMon
     </Text>
   );
 }
