@@ -150,7 +150,19 @@ def monitor_contract(self, monitoring_task_id):
                 {"address": contract_address, "fromBlock": "latest"},
             ],
         }
+    elif chain == "mnt":
+        subscribe_data = {
+            "id": 1,
+            "jsonrpc": "2.0",
+            "method": "eth_subscribe",
+            "params": [
+                "logs",
+                {"address": contract_address, "fromBlock": "latest"},
+            ],
+        }
+
     elif chain == "arb":
+    # else:
         subscribe_data = {
             "id": 1,
             "jsonrpc": "2.0",
@@ -180,7 +192,8 @@ def monitor_contract(self, monitoring_task_id):
         )
         response = json.loads(ws.recv())
 
-        if chain == "arb":
+        # if chain == "arb":
+        if chain != "eth":
             logger.info(f"[DEBUG] Received response: {response}")
             response = response.get("params").get("result").get("transaction")
 
@@ -258,7 +271,8 @@ def monitor_contract(self, monitoring_task_id):
                 and "params" in response
                 and response["params"]["subscription"] == subscription_id
             ) or (
-                chain == "arb"
+                # chain == "arb"
+                chain != "eth"
             ):  # this is for the arb chain
                 # transaction_hash = response.get("hash")
 
@@ -266,6 +280,17 @@ def monitor_contract(self, monitoring_task_id):
 
                 if "eth" == chain:
                     transaction_hash = response["params"]["result"]["hash"]
+                    transaction = fetch_transaction_details(transaction_hash)
+
+                elif "mnt" == chain:
+                    if type(response.get("result")) == str:
+                        logger.error(
+                            f"[DEBUG] Transaction hash is string. continuing"
+                        )
+
+                        continue
+
+                    transaction_hash = response["params"]["result"]["transactionHash"]
                     transaction = fetch_transaction_details(transaction_hash)
 
                 elif "arb" == chain:
@@ -305,7 +330,7 @@ def monitor_contract(self, monitoring_task_id):
                     break
 
                 if len(alerts) == 0:
-                    logger.log(
+                    logger.info(
                         f"[DEBUG] No alerts found for contract {contract_address}"
                     )
                     time.sleep(2)

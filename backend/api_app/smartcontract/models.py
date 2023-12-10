@@ -11,6 +11,7 @@ User = get_user_model()
 class Chain(models.TextChoices):
     ETH = "ETH", "eth"
     ARB = "ARB", "arb"
+    MNT = "MNT", "mnt"
 
 
 class Network(models.TextChoices):
