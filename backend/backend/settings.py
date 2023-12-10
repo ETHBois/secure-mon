@@ -11,11 +11,14 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import logging
 from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+logger = logging.getLogger(__name__)
 
 
 # Quick-start development settings - unsuitable for production
